@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Calculator</title>
+
+<style>
+body {
+    background: #202124;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Arial;
+}
+
+.calculator {
+    background: #303134;
+    padding: 20px;
+    border-radius: 15px;
+    width: 300px;
+}
+
+#display {
+    width: 100%;
+    height: 60px;
+    font-size: 30px;
+    margin-bottom: 10px;
+    text-align: right;
+    background: #171717;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding-right: 10px;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+button {
+    height: 60px;
+    font-size: 22px;
+    border: none;
+    border-radius: 10px;
+    background: #5f6368;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #777;
+}
+</style>
+</head>
+
+<body>
+
+<div class="calculator">
+    <input type="text" id="display" readonly>
+
+    <div class="buttons">
+        <button onclick="press('7')">7</button>
+        <button onclick="press('8')">8</button>
+        <button onclick="press('9')">9</button>
+        <button onclick="press('/')">÷</button>
+
+        <button onclick="press('4')">4</button>
+        <button onclick="press('5')">5</button>
+        <button onclick="press('6')">6</button>
+        <button onclick="press('*')">×</button>
+
+        <button onclick="press('1')">1</button>
+        <button onclick="press('2')">2</button>
+        <button onclick="press('3')">3</button>
+        <button onclick="press('-')">−</button>
+
+        <button onclick="press('0')">0</button>
+        <button onclick="clearDisplay()">C</button>
+        <button onclick="equalsPressed()">=</button>
+        <button onclick="press('+')">+</button>
+    </div>
+</div>
+
+<script>
+let display = document.getElementById("display");
+
+let secretMode = false;
+let equalPresses = 0;
+
+function press(value) {
+    display.value += value;
+}
+
+function clearDisplay() {
+    display.value = "";
+}
+
+function equalsPressed() {
+
+    // SECRET ACTIVATION
+    if(display.value === "") {
+        equalPresses++;
+
+        if(equalPresses >= 3) {
+            secretMode = true;
+            equalPresses = 0;
+
+            let code = prompt("Enter Access Code");
+
+            if(code === "6825") {
+
+                // PUT YOUR GAME SITE HERE
+                window.location.href =
+                "https://sites.google.com/view/YOURSITE";
+
+            } else {
+                alert("Wrong Code");
+            }
+        }
+
+        return;
+    }
+
+    // NORMAL CALCULATOR
+    try {
+        display.value = eval(display.value);
+    } catch {
+        display.value = "Error";
+    }
+}
+</script>
+
+</body>
+</html>
